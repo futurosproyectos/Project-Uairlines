@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrativo - Sistema de Reservas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2980b9;
+            --background-color: #f5f6fa;
+            --text-color: #2c3e50;
+            --success-color: #2ecc71;
+            --warning-color: #f1c40f;
+            --danger-color: #e74c3c;
+        }
+
+        body {
+            background-color: var(--background-color);
+        }
+
+        .header {
+            background-color: white;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            color: var(--text-color);
+            margin-left: 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .tabs {
+            display: flex;
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .tab-button {
+            padding: 0.5rem 1rem;
+            border: none;
+            background: none;
+            cursor: pointer;
+            color: var(--text-color);
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .tab-button.active {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .dashboard-section {
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-section h2 {
+            color: var(--text-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .card h3 {
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .card .number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .card .trend {
+            font-size: 0.9rem;
+            color: var(--success-color);
+        }
+
+        .trend.up {
+            color: var(--success-color);
+        }
+
+        .trend.down {
+            color: var(--danger-color);
+        }
+
+        .table-container {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            color: var(--text-color);
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .status-active {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status-inactive {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: var(--primary-color);
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .chart-container {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            height: 300px;
+        }
+
+        @media (max-width: 768px) {
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .tab-button {
+                width: 100%;
+                text-align: left;
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Panel Administrativo - Sistema de Reservas</h1>
+    </div>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-button active" data-tab="overview">Vista General</button>
+            <button class="tab-button" data-tab="flights">Vuelos</button>
+            <button class="tab-button" data-tab="tickets">Reservas</button>
+            <button class="tab-button" data-tab="airlines">Aerolíneas</button>
+            <button class="tab-button" data-tab="airports">Aeropuertos</button>
+        </div>
+
+        <!-- Vista General Mejorada -->
+        <div id="overview" class="tab-content active">
+            <div class="dashboard-section">
+                <h2>Métricas Principales</h2>
+                <div class="dashboard-cards">
+                    <div class="card">
+                        <h3>Reservas Totales</h3>
+                        <div class="number">1,234</div>
+                        <div class="trend up">↑ 12% vs mes anterior</div>
+                    </div>
+                    <div class="card">
+                        <h3>Vuelos Activos</h3>
+                        <div class="number">42</div>
+                        <div class="trend up">↑ 5% vs mes anterior</div>
+                    </div>
+                    <div class="card">
+                        <h3>Clientes Registrados</h3>
+                        <div class="number">856</div>
+                        <div class="trend up">↑ 8% vs mes anterior</div>
+                    </div>
+                    <div class="card">
+                        <h3>Ingresos Mensuales</h3>
+                        <div class="number">RD$405,678</div>
+                        <div class="trend down">↓ 3% vs mes anterior</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-section">
+                <h2>Estadísticas Detalladas</h2>
+                <div class="dashboard-cards">
+                    <div class="card">
+                        <h3>Tasa de Ocupación</h3>
+                        <div class="number">78%</div>
+                        <div class="trend up">↑ 4% vs mes anterior</div>
+                    </div>
+                    <div class="card">
+                        <h3>Satisfacción Cliente</h3>
+                        <div class="number">4.5/5</div>
+                        <div class="trend">basado en 423 reseñas</div>
+                    </div>
+                    <div class="card">
+                        <h3>Cancelaciones</h3>
+                        <div class="number">2.3%</div>
+                        <div class="trend down">↓ 0.5% vs mes anterior</div>
+                    </div>
+                    <div class="card">
+                        <h3>Rutas Activas</h3>
+                        <div class="number">156</div>
+                        <div class="trend up">↑ 3 nuevas este mes</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-section">
+                <h2>Resumen de Ventas por Categoría</h2>
+                <div class="dashboard-cards">
+                    <div class="card">
+                        <h3>Clase Business</h3>
+                        <div class="number">RD$23,456</div>
+                        <div class="trend">32% del total</div>
+                    </div>
+                    <div class="card">
+                        <h3>Clase Turista</h3>
+                        <div class="number">RD$55,678</div>
+                        <div class="trend">63% del total</div>
+                    </div>
+                    <div class="card">
+                        <h3>Clase Premium</h3>
+                        <div class="number">RD$22,345</div>
+                        <div class="trend">15% del total</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+<!--vuelo-->
+<div id="flights" class="tab-content">
+    <div class="dashboard-section">
+        <h2>Resumen de Vuelos</h2>
+        <div class="dashboard-cards">
+            <div class="card">
+                <h3>Vuelos Hoy</h3>
+                <div class="number">42</div>
+                <div class="trend up">↑ 8 más que ayer</div>
+            </div>
+            <div class="card">
+                <h3>Tasa de Puntualidad</h3>
+                <div class="number">92%</div>
+                <div class="trend up">↑ 3% vs promedio</div>
+            </div>
+            <div class="card">
+                <h3>Ocupación Media</h3>
+                <div class="number">85%</div>
+                <div class="trend up">↑ 5% este mes</div>
+            </div>
+            <div class="card">
+                <h3>Vuelos Retrasados</h3>
+                <div class="number">3</div>
+                <div class="trend down">↓ 2 menos que ayer</div>
+            </div>
+        </div>
+        
+        <h2>Gestión de Vuelos</h2>
+        <div class="filter-section">
+            <input type="text" placeholder="Número de vuelo">
+            <select>
+                <option value="">Origen</option>
+                <option value="MAD">Madrid (MAD)</option>
+                <option value="BCN">Barcelona (BCN)</option>
+                <option value="VLC">Valencia (VLC)</option>
+                <option value="RD">RepublicaDominicana(RD)</option>
+            </select>
+            <select>
+                <option value="">Destino</option>
+                <option value="CDG">París (CDG)</option>
+                <option value="LHR">Londres (LHR)</option>
+                <option value="FCO">Roma (FCO)</option>
+                <option value="RD">RepublicaDominicana(RD)</option>
+            </select>
+            <input type="date" placeholder="Fecha">
+            <button class="search-btn">Buscar</button>
+        </div>
+
+        <div class="table-container">
+            <button class="btn" onclick="showAddFlightForm()">Agregar Vuelo</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Número Vuelo</th>
+                        <th>Ruta</th>
+                        <th>Fecha/Hora</th>
+                        <th>Aerolínea</th>
+                        <th>Capacidad</th>
+                        <th>Precio Base</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>IB3456</td>
+                        <td>
+                            <div class="flight-details">
+                                <span class="flight-icon">✈️</span>
+                                MAD → CDG
+                            </div>
+                        </td>
+                        <td>22/11/2024 10:30</td>
+                        <td>Iberia</td>
+                        <td>180/200</td>
+                        <td><span class="price-tag">RD$15,500</span></td>
+                        <td><span class="status-badge status-active">En Tiempo</span></td>
+                        <td><button class="btn">Editar</button></td>
+                    </tr>
+                    <tr>
+                        <td>VY1234</td>
+                        <td>
+                            <div class="flight-details">
+                                <span class="flight-icon">✈️</span>
+                                BCN → LHR
+                            </div>
+                        </td>
+                        <td>22/11/2024 12:45</td>
+                        <td>Vueling</td>
+                        <td>150/150</td>
+                        <td><span class="price-tag">RD$12,000</span></td>
+                        <td><span class="status-badge status-warning">Demorado</span></td>
+                        <td><button class="btn">Editar</button></td>
+                    </tr>
+                    <tr>
+                        <td>AF789</td>
+                        <td>
+                            <div class="flight-details">
+                                <span class="flight-icon">✈️</span>
+                                CDG → MAD
+                            </div>
+                        </td>
+                        <td>22/11/2024 15:20</td>
+                        <td>Air France</td>
+                        <td>160/200</td>
+                        <td><span class="price-tag">RD$14,200</span></td>
+                        <td><span class="status-badge status-active">Programado</span></td>
+                        
+<!--reserva-->
+<div id="tickets" class="tab-content">
+    <div class="dashboard-section">
+        <h2>Gestión de Reservas</h2>
+        <div class="filter-section">
+            <input type="text" placeholder="ID Reserva">
+            <input type="text" placeholder="Nombre Pasajero">
+            <select>
+                <option value="">Estado</option>
+                <option value="confirmed">Confirmada</option>
+                <option value="pending">Pendiente</option>
+                <option value="cancelled">Cancelada</option>
+            </select>
+            <button class="search-btn">Buscar</button>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID Reserva</th>
+                        <th>Pasajero</th>
+                        <th>Vuelo</th>
+                        <th>Fecha</th>
+                        <th>Precio</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#RES001</td>
+                        <td>Juan Pérez</td>
+                        <td>IB3456</td>
+                        <td>22/11/2024</td>
+                        <td>RD$21,250</td>
+                        <td><span class="status-badge status-confirmed">Confirmada</span></td>
+                        <td>
+                            <button class="btn">Ver</button>
+                            <button class="btn">Cancelar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+        <!-- Aerolíneas -->
+        <div id="airlines" class="tab-content">
+            <div class="table-container">
+                <button class="btn" onclick="showAddAirlineForm()">Agregar Aerolínea</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Nombre</th>
+                            <th>País</th>
+                            <th>Vuelos Activos</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="airlinesTableBody">
+                        <!-- Datos de ejemplo de aerolíneas -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Aeropuertos -->
+        <div id="airports" class="tab-content">
+            <div class="table-container">
+                <button class="btn" onclick="showAddAirportForm()">Agregar Aeropuerto</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Código IATA</th>
+                            <th>Nombre</th>
+                            <th>Ciudad</th>
+                            <th>País</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="airportsTableBody">
+                        <!-- Datos de ejemplo de aeropuertos -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Manejo de tabs
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                button.classList.add('active');
+                const tabId = button.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Datos de ejemplo para aerolíneas
+        const mockAirlines = [
+            { 
+                code: 'LA', 
+                name: 'Las Americas', 
+                country: 'Republica Domincana', 
+                activeFlights: 245, 
+                status: 'Activa'
+            },
+            {
+                code: 'VY',
+                name: 'Vueling',
+                country: 'España',
+                activeFlights: 178,
+                status: 'Activa'
+            },
+            {
+                code: 'AF',
+                name: 'Air France',
+                country: 'Francia',
+                activeFlights: 312,
+                status: 'Activa'
+            },
+            {
+                code: 'IB',
+                name: 'Iberia',
+                country: 'España',
+                activeFlights: 289,
+                status: 'Activa'
+            },
+            {
+                code: 'BA',
+                name: 'British Airways',
+                country: 'Reino Unido',
+                activeFlights: 267,
+                status: 'Activa'
+            }
+        ];
+
+        // Datos de ejemplo para aeropuertos
+        const mockAirports = [
+            {
+                code: 'MAD',
+                name: 'Aeropuerto Adolfo Suárez Madrid-Barajas',
+                city: 'Madrid',
+                country: 'España',
+                status: 'Activo'
+            },
+            {
+                code: 'AIA',
+                name: 'Aeropuerto Internacional de las Americas',
+                city: 'Santo Domingo',
+                country: 'Republica Dominicana',
+                status: 'Activo'
+            },
+            {
+                code: 'APJB',
+                name: 'Aeropuerto Internacional Presidente Doctor Joaquín Balaguer',
+                city: 'Santo Domingo',
+                country: 'Republica Domincana',
+                status: 'Sin servicio'
+            },
+            {
+                code: 'LHR',
+                name: 'Aeropuerto de Londres-Heathrow',
+                city: 'Londres',
+                country: 'Reino Unido',
+                status: 'Activo'
+            },
+            {
+                code: 'FRA',
+                name: 'Aeropuerto de Frankfurt',
+                city: 'Frankfurt',
+                country: 'Alemania',
+                status: 'Activo'
+            }
+        ];
+
+        // Función para cargar datos de aerolíneas
+        function loadAirlines() {
+            const tbody = document.getElementById('airlinesTableBody');
+            tbody.innerHTML = mockAirlines.map(airline => `
+                <tr>
+                    <td>${airline.code}</td>
+                    <td>${airline.name}</td>
+                    <td>${airline.country}</td>
+                    <td>${airline.activeFlights}</td>
+                    <td><span class="status-badge status-active">${airline.status}</span></td>
+                    <td>
+                        <button class="btn" onclick="editAirline('${airline.code}')">Editar</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Función para cargar datos de aeropuertos
+        function loadAirports() {
+            const tbody = document.getElementById('airportsTableBody');
+            tbody.innerHTML = mockAirports.map(airport => `
+                <tr>
+                    <td>${airport.code}</td>
+                    <td>${airport.name}</td>
+                    <td>${airport.city}</td>
+                    <td>${airport.country}</td>
+                    <td><span class="status-badge status-active">${airport.status}</span></td>
+                    <td>
+                        <button class="btn" onclick="editAirport ('${airport.code}')">Editar</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Función para editar aerolínea
+        function editAirline(code) {
+            const airline = mockAirlines.find(a => a.code === code);
+            if (airline) {
+                alert(`Editando aerolínea: ${airline.name}`);
+                // Aquí iría la lógica para mostrar un formulario de edición
+            }
+        }
+
+        // Función para editar aeropuerto
+        function editAirport(code) {
+            const airport = mockAirports.find(a => a.code === code);
+            if (airport) {
+                alert(`Editando aeropuerto: ${airport.name}`);
+                // Aquí iría la lógica para mostrar un formulario de edición
+            }
+        }
+
+        // Funciones para mostrar formularios de agregar
+        function showAddAirlineForm() {
+            alert('Mostrando formulario para agregar nueva aerolínea');
+            // Aquí iría la lógica para mostrar el formulario de agregar aerolínea
+        }
+
+        function showAddAirportForm() {
+            alert('Mostrando formulario para agregar nuevo aeropuerto');
+            // Aquí iría la lógica para mostrar el formulario de agregar aeropuerto
+        }
+
+        // Cargar datos cuando se carga la página
+        window.addEventListener('load', () => {
+            loadAirlines();
+            loadAirports();
+        });
+    </script>
+</body>
+</html>

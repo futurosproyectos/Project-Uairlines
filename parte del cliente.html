@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Reservas de Vuelos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        :root {
+            --primary-color: #2962ff;
+            --secondary-color: #0035bc;
+            --accent-color: #768fff;
+            --text-color: #333;
+            --light-gray: #f5f5f5;
+            --border-radius: 12px;
+        }
+
+        body {
+            background-color: var(--light-gray);
+            color: var(--text-color);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 4rem 1rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '✈️';
+            position: absolute;
+            font-size: 10rem;
+            opacity: 0.1;
+            right: -2rem;
+            top: -2rem;
+            transform: rotate(-45deg);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: -2rem auto 2rem;
+            padding: 0 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .booking-form {
+            background-color: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .booking-form:hover {
+            transform: translateY(-5px);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: white;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(41, 98, 255, 0.1);
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .flight-results {
+            margin-top: 2rem;
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .flight-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .flight-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .flight-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .airline-logo {
+            width: 50px;
+            height: 50px;
+            background-color: var(--light-gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .flight-route {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 1rem 0;
+            position: relative;
+            padding: 0 1rem;
+        }
+
+        .flight-route::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 2rem;
+            right: 2rem;
+            height: 2px;
+            background-color: #eee;
+            z-index: 1;
+        }
+
+        .flight-route::before {
+            content: '✈️';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5rem;
+            z-index: 2;
+            background-color: white;
+            padding: 0 0.5rem;
+        }
+
+        .airport {
+            text-align: center;
+            z-index: 2;
+            background-color: white;
+            padding: 0 0.5rem;
+        }
+
+        .airport-code {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .airport-name {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .flight-details {
+            display: flex;
+            justify-content: space-between;
+            margin: 1rem 0;
+            padding: 1rem;
+            background-color: var(--light-gray);
+            border-radius: 8px;
+        }
+
+        .detail-group {
+            text-align: center;
+        }
+
+        .detail-label {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 0.25rem;
+        }
+
+        .detail-value {
+            font-weight: bold;
+            color: var(--text-color);
+        }
+
+        .price {
+            text-align: right;
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .price-amount {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .loading-animation {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .loading-animation::after {
+            content: '✈️';
+            font-size: 2rem;
+            animation: fly 1s infinite linear;
+            display: inline-block;
+        }
+
+        @keyframes fly {
+            from {
+                transform: translateX(-50px) rotate(45deg);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(50px) rotate(45deg);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin-top: -1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .flight-card {
+                margin: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>✈️ Reserva tu Vuelo</h1>
+        <p>Encuentra los mejores precios para tu próximo viaje</p>
+    </div>
+
+    <div class="container">
+        <div class="booking-form">
+            <form id="searchForm" onsubmit="buscarVuelos(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="origen">Origen</label>
+                        <select id="origen" required>
+                            <option value="">Selecciona ciudad</option>
+                            <option value="RD">Republica Dominicana (RD)</option>
+                            <option value="BCN">Barcelona (BCN)</option>
+                            <option value="PT">Puerto Pata (PT)</option>
+                            <option value="VLC">Valencia (VLC)</option>
+                            <option value="GRX">Canada (GRX)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="destino">Destino</label>
+                        <select id="destino" required>
+                            <option value="">Selecciona ciudad</option>
+                            <option value="MAD">Madrid (MAD)</option>
+                            <option value="BCN">Barcelona (BCN)</option>
+                            <option value="RD">RepublicaDominicana (RD)</option>
+                            <option value="VLC">Valencia (VLC)</option>
+                            <option value="PD">Puerto Rico</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fecha">Fecha de Salida</label>
+                        <input type="date" id="fecha" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pasajeros">Pasajeros</label>
+                        <select id="pasajeros" required>
+                            <option value="1">1 Pasajero</option>
+                            <option value="2">2 Pasajeros</option>
+                            <option value="3">3 Pasajeros</option>
+                            <option value="4">4 Pasajeros</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="categoria">Clase</label>
+                        <select id="categoria" required>
+                            <option value="turista">Turista</option>
+                            <option value="business">Business</option>
+                            <option value="primera">Primera Clase</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="tipoViaje">Tipo de Viaje</label>
+                        <select id="tipoViaje">
+                            <option value="ida">Solo Ida</option>
+                            <option value="idaVuelta">Ida y Vuelta</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit">Buscar Vuelos</button>
+            </form>
+        </div>
+
+        <div id="loadingAnimation" class="loading-animation"></div>
+        <div id="resultadosVuelos" class="flight-results"></div>
+    </div>
+
+    <script>
+        // Base de datos simulada de vuelos
+        const vuelosDisponibles = [
+            {
+                id: 'IB-2345',
+                compania: 'Iberia',
+                origen: 'PT',
+                origenNombre: 'Pureto Plata',
+                destino: 'MAD',
+                destinoNombre: 'Madrid',
+                fecha: '2024-11-10',
+                horaSalida: '08:30PM',
+                horaLlegada: '09:45PM',
+                duracion: '1h 5m',
+                precio: {
+                    turista: 100500,
+                    business: 250,
+                    primera: 400
+                }
+            },
+            {
+                id: 'VY-1023',
+                compania: 'Vuela Tazo',
+                origen: 'RD',
+                origenNombre: 'Republica Dominicana',
+                destino: 'PD',
+                destinoNombre: 'Puerto Rico',
+                fecha: '2024-11-10',
+                horaSalida: '10:15PM',
+                horaLlegada: '11:30PM',
+                duracion: '1h 25m',
+                precio: {
+                    turista: 11300,
+                    business: 220,
+                    primera: 380
+                }
+            },
+            {
+                id: 'FR-6789',
+                compania: 'JET Blue',
+                origen: 'RD',
+                origenNombre: 'Republica Dominicana',
+                destino: 'BCN',
+                destinoNombre: 'Barcelona',
+                fecha: '2024-11-10',
+                horaSalida: '1:45AM',
+                horaLlegada: '3:00AM',
+                duracion: '1h 45m',
+                precio: {
+                    turista: 65800,
+                    business: 190,
+                    primera: 350
+                }
+            }
+        ];
+
+        // Función para mostrar la animación de carga
+        function mostrarCarga() {
+            document.getElementById('loadingAnimation').style.display = 'block';
+            document.getElementById('resultadosVuelos').innerHTML = '';
+        }
+
+        // Función para ocultar la animación de carga
+        function ocultarCarga() {
+            document.getElementById('loadingAnimation').style.display = 'none';
+        }
+
+        // Función para formatear precio
+        function formatearPrecio(precio) {
+            return new Intl.NumberFormat('es-DO', {
+                style: 'currency',
+                currency: 'DOP'
+            }).format(precio);
+        }
+
+        // Función para buscar vuelos
+        function buscarVuelos(event) {
+            event.preventDefault();
+            mostrarCarga();
+
+            const origen = document.getElementById('origen').value;
+            const destino = document.getElementById('destino').value;
+            const categoria = document.getElementById('categoria').value;
+            const pasajeros = parseInt(document.getElementById('pasajeros').value);
+
+            // Simulamos una búsqueda con delay para mostrar la animación
+            setTimeout(() => {
+                const vuelos = vuelosDisponibles.filter(vuelo => 
+                    vuelo.origen === origen && vuelo.destino === destino
+                );
+
+                mostrarResultados(vuelos, categoria, pasajeros);
+                ocultarCarga();
+            }, 1500);
+        }
+
+        // Función para mostrar los resultados
+        function mostrarResultados(vuelos, categoria, pasajeros) {
+            const contenedor = document.getElementById('resultadosVuelos');
+            contenedor.innerHTML = '';
+
+            if (vuelos.length === 0) {
+                contenedor.innerHTML = '<p style="text-align: center; padding: 2rem;">No se encontraron vuelos disponibles para los criterios seleccionados.</p>';
+                return;
+            }
+
+            vuelos.forEach(vuelo => {
+                const precioTotal = vuelo.precio[categoria] * pasajeros;
+                const vueloCard = document.createElement('div');
+                vueloCard.className = 'vueloCard.className = flight-card'
+                vueloCard.innerHTML = `
+                    <div class="flight-header">
+                        <div class="airline-logo">${vuelo.compania.charAt(0)}</div>
+                        <div>${vuelo.compania}</div>
+                        <div>${vuelo.id}</div>
+                    </div>
+                    
+                    <div class="flight-route">
+                        <div class="airport">
+                            <div class="airport-code">${vuelo.origen}</div>
+                            <div class="airport-name">${vuelo.origenNombre}</div>
+                        </div>
+                        <div class="airport">
+                            <div class="airport-code">${vuelo.destino}</div>
+                            <div class="airport-name">${vuelo.destinoNombre}</div>
+                        </div>
+                    </div>
+
+                    <div class="flight-details">
+                        <div class="detail-group">
+                            <div class="detail-label">Salida</div>
+                            <div class="detail-value">${vuelo.horaSalida}</div>
+                        </div>
+                        <div class="detail-group">
+                            <div class="detail-label">Llegada</div>
+                            <div class="detail-value">${vuelo.horaLlegada}</div>
+                        </div>
+                        <div class="detail-group">
+                            <div class="detail-label">Duración</div>
+                            <div class="detail-value">${vuelo.duracion}</div>
+                        </div>
+                    </div>
+
+                    <div class="price">
+                        <div class="detail-label">Precio total para ${pasajeros} pasajero${pasajeros > 1 ? 's' : ''}</div>
+                        <div class="price-amount">${formatearPrecio(precioTotal)}</div>
+                        <button onclick="seleccionarVuelo('${vuelo.id}', ${precioTotal})" style="width: 100%; margin-top: 1rem;">
+                            Seleccionar
+                        </button>
+                    </div>
+                `;
+                contenedor.appendChild(vueloCard);
+            });
+        }
+
+        // Función para seleccionar un vuelo
+        function seleccionarVuelo(idVuelo, precio) {
+            alert(`Has seleccionado el vuelo ${idVuelo} por ${formatearPrecio(precio)}. 
+                  En un sistema real, aquí continuaría el proceso de reserva.`);
+
+                  window.location.href = 'Reserva de ticket.html';
+        }
+
+        // Establecer fecha mínima como hoy
+        document.addEventListener('DOMContentLoaded', function() {
+            const fechaInput = document.getElementById('fecha');
+            const hoy = new Date();
+            const fechaMinima = hoy.toISOString().split('T')[0];
+            fechaInput.min = fechaMinima;
+            fechaInput.value = fechaMinima;
+        });
+
+        // Validar que origen y destino sean diferentes
+        document.getElementById('searchForm').addEventListener('submit', function(event) {
+            const origen = document.getElementById('origen').value;
+            const destino = document.getElementById('destino').value;
+            
+            if (origen === destino) {
+                event.preventDefault();
+                alert('El origen y destino no pueden ser iguales');
+            }
+        });
+    </script>
+</body>
+</html>
