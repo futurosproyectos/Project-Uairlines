@@ -4,6 +4,7 @@
 <head>
     <title> "Odyssey airlines" </title>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         * {
             margin: 0;
@@ -26,33 +27,84 @@
             color: var(--text-color);
         }
 
+        .hero-section {
+            width: 100%;
+            height: 640px;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            animation: slideShow 30s infinite linear;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 20px;
+            width: 500px;
+        }
+
+        .text-content {
+            flex: 1;
+            text-align: justify;
+        }
+
+        .logo {
+            width: 240px;
+            height: auto;
+            margin-left: 20px;
+        }
+
+        .CardButton1 {
+            display: inline-block;
+            padding: 10px 10px;
+            font-size: 14px;
+            color: #ffffff;
+            border: 2px solid #002df7;
+            border-radius: 25px;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s ease-in-out;
+        }
+
+        @keyframes slideShow {
+
+            0%,
+            33% {
+                background-image: url('D:/Pagina web PROJECTS/Diseño de la pag y css/imagen1.jpg');
+
+            }
+
+            34%,
+            66% {
+                background-image: url('D:/Pagina web PROJECTS/Diseño de la pag y css/imagen2.jpg');
+            }
+
+            67%,
+            100% {
+                background-image: url('D:/Pagina web PROJECTS/Diseño de la pag y css/imagen3.jpg');
+            }
+        }
+
         .hero {
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
-            padding: 4rem 1rem;
-            text-align: center;
+            padding: 1rem 1rem;
+
             position: relative;
             overflow: hidden;
         }
 
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 5rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero img {
-            display: block;
-            margin: 0 auto;
-            width: 40%;
-            max-width: 300px;
-            height: auto;
-        }
-
         .container {
             max-width: 1200px;
-            margin: -2rem auto 2rem;
+            margin: 1rem auto 2rem;
             padding: 0 1rem;
             position: relative;
             z-index: 2;
@@ -190,7 +242,6 @@
             object-fit: cover;
         }
 
-
         .card-content {
             padding: 20px;
         }
@@ -207,18 +258,108 @@
             color: #555;
             margin-bottom: 15px;
         }
+
+        .search-container {
+            margin: 20px;
+        }
+
+        #search-bar {
+            width: 300px;
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .popular-topics {
+            background-color: #032548;
+            /* Azul */
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .container2 {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+        }
+
+        h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .search-container {
+            display: flex;
+        }
+
+        #search-bar {
+            padding: 8px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            width: 200px;
+        }
+
+        #item-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px auto;
+            max-width: 800px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            column-gap: 20px;
+        }
+
+        #item-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        @media (max-width: 600px) {
+            .container2 {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            #search-bar {
+                margin-top: 10px;
+                width: 100%;
+            }
+
+            #item-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .footer {
+            display: flex;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            overflow: hidden;
+            justify-content: space-around;
+        }
     </style>
 </head>
 
 <body>
+    <section class="hero-section">
+        <div class="overlay">
+            <div class="text-content">
+                <h2>Earn up to 80,000 miles with a Odissey Card.</h2>
+                <strong>Odyssey airlines</strong>
+                <br><br><a href="#" class="CardButton1">Learn more → </a>
+            </div>
+            <img src="D:\Pagina web PROJECTS\Diseño de la pag y css\logo.png" alt="Logo de la página" class="logo"></h1>
+        </div>
+    </section>
     <div class="hero">
         <header>
-            <p>
-            <h1><img src="D:\Pagina web PROJECTS\Diseño de la pag y css\logo.png" alt="Logo de la página"></h1>
-            </p>
-            <h1>
-                <strong>Odyssey airlines</strong>
-            </h1>
         </header>
     </div>
     <div class="container">
@@ -244,7 +385,7 @@
         </h1>
         <br>
         <p>
-            <em> Descubra los destinos más populares de United Airlines</em>
+            <em> Descubra los destinos más populares de Odyssey airlines</em>
         </p>
     </div>
     <div class="cards-container">
@@ -299,6 +440,37 @@
             </div>
         </div>
     </section>
+    <section class="popular-topics">
+        <div class="container2">
+            <h2 class="popular-topics">Temas Populares</h2>
+            <div class="search-container">
+                <input type="text" id="search-bar" placeholder="Buscar..." onkeyup="searchFunction()">
+            </div>
+        </div>
+        <ul id="item-list">
+            <li>Vuelos baratos</li>
+            <li>Destinos populares</li>
+            <li>Equipaje permitido</li>
+            <li>Ofertas de temporada</li>
+            <li>Check-in en línea</li>
+            <li>Políticas de cancelación</li>
+        </ul>
+    </section>
+    <script>
+        function searchFunction() {
+            let input = document.getElementById("search-bar").value.toLowerCase();
+            let items = document.querySelectorAll("#item-list li");
+
+            items.forEach(item => {
+                let text = item.textContent.toLowerCase();
+                item.style.display = text.includes(input) ? "" : "none";
+            });
+        }
+    </script>
+
+    <footer class="footer">
+        <p>&copy ; 2024 Odyssey Airlines - Todos los derechos reservados</p>
+    </footer>
 </body>
 
 </html>
