@@ -1,19 +1,3 @@
--- Cerrar conexiones activas a la base de datos
-USE master;
-ALTER DATABASE Sistema_Reserva_Vuelos SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
-
--- Eliminar la base de datos si existe
-IF DB_ID('Sistema_Reserva_Vuelos') IS NOT NULL  
-BEGIN  
-    DROP DATABASE Sistema_Reserva_Vuelos;  
-    PRINT 'La base de datos Sistema_Reserva_Vuelos fue eliminada.';  
-END  
-ELSE  
-BEGIN  
-    PRINT 'La base de datos Sistema_Reserva_Vuelos no existe.';  
-END  
-GO  
-
 -- Crear la base de datos  
 CREATE DATABASE Sistema_Reserva_Vuelos;  
 PRINT 'La base de datos Sistema_Reserva_Vuelos fue creada.';  
