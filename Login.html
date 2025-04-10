@@ -61,7 +61,7 @@
 </head>
 <body>
     <div class="container" id="login-container">
-        <img src="D:\Pagina web PROJECTS\Diseño de la pag y css\logo.png" alt="Logo de la página">
+        <img src="imagen/logo.png" alt="Logo de la página">
         <h2>Aeropuerto de Punta Cana</h2>
         <h3>Iniciar Sesión</h3>
         <input type="text" id="login-username" placeholder="Usuario" required>
@@ -72,7 +72,7 @@
     </div>
     
     <div class="container" id="register-container" style="display: none;">
-        <img src="D:\Pagina web PROJECTS\Diseño de la pag y css\logo.png" alt="Logo de la página">
+        <img src="imagen/logo.png" alt="Logo de la página">
         <h2>Registro</h2>
         <input type="text" id="register-username" placeholder="Usuario" required>
         <input type="email" id="register-email" placeholder="Correo electrónico" required>
@@ -123,7 +123,7 @@
             
             if (users[username] && users[username].password === password) {
                 alert("Inicio de sesión exitoso");
-                window.location.href = "parte del cliente.html"; // Redirecciona a otra página
+                window.location.href = "index.html" // Redirecciona a otra página
             } else {
                 errorMsg.style.display = "block";
             }
