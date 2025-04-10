@@ -23,31 +23,31 @@
             "type": "msedge",
             "request": "launch",
             "name": "Open parte administrativa.html",
-            "file": "D:\\Repositorios\\Project-Uairlines\\parte administrativa.html"
+            "file": "C:\\Repositorios\\Project-Uairlines\\parte administrativa.html"
         },
         {
             "type": "msedge",
             "request": "launch",
             "name": "Open Projecto Web (United airlines).html",
-            "file": "D:\\Repositorios\\Project-Uairlines\\Projecto Web (United airlines).html"
+            "file": "C:\\Repositorios\\Project-Uairlines\\Projecto Web (United airlines).html"
         },
         {
             "type": "msedge",
             "request": "launch",
             "name": "Open parte del cliente.html",
-            "file": "D:\\Repositorios\\Project-Uairlines\\parte del cliente.html"
+            "file": "C:\\Repositorios\\Project-Uairlines\\parte del cliente.html"
         },
         {
             "type": "msedge",
             "request": "launch",
             "name": "Open Reserva de ticket.html",
-            "file": "D:\\Repositorios\\Project-Uairlines\\Reserva de ticket.html"
+            "file": "C:\\Repositorios\\Project-Uairlines\\Reserva de ticket.html"
         },
         {
             "type": "msedge",
             "request": "launch",
             "name": "Open index.html",
-            "file": "D:\\Repositorios\\Project-Uairlines\\index.html"
+            "file": "C:\\Repositorios\\Project-Uairlines\\index.html"
         }
     ]
 }
