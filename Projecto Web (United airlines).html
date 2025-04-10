@@ -78,18 +78,18 @@
 
             0%,
             33% {
-                background-image: url('D:/Pagina web PROJECTS/Diseño de la pag y css/imagen1.jpg');
+                background-image: url("imagen/imagen1.jpg");
 
             }
 
             34%,
             66% {
-                background-image: url('D:/Pagina web PROJECTS/Diseño de la pag y css/imagen2.jpg');
+                background-image: url("imagen/imagen2.jpg");
             }
 
             67%,
             100% {
-                background-image: url('D:/Pagina web PROJECTS/Diseño de la pag y css/imagen3.jpg');
+                background-image: url("imagen/imagen3.jpg");
             }
         }
 
@@ -166,7 +166,7 @@
             border-radius: 10px;
         }
 
-        .image-container img {
+        .imagen-container img {
             max-width: 90%;
             border-radius: 10px;
         }
@@ -271,6 +271,21 @@
             font-size: 16px;
         }
 
+        .login-btn {
+        background-color: #f8b400;
+        color: #032548;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 5px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+}
+
+.login-btn:hover {
+    background-color: #e0a800;
+}
+
         .popular-topics {
             background-color: #032548;
             /* Azul */
@@ -286,6 +301,7 @@
             align-items: center;
             justify-content: space-between;
             padding: 10px 20px;
+            gap: 20px;
         }
 
         h2 {
@@ -350,6 +366,8 @@
 <body>
     <section class="popular-topics">
         <div class="container2">
+            <button class="login-btn" onclick="redirectToLogin(Login.html)">Iniciar sesión</button>
+
             <h2 class="popular-topics">Temas Populares</h2>
             <div class="search-container">
                 <input type="text" id="search-bar" placeholder="Buscar..." onkeyup="searchFunction()">
@@ -375,7 +393,6 @@
             });
         }
     </script>
-
     <section class="hero-section">
         <div class="overlay">
             <div class="text-content">
@@ -383,7 +400,7 @@
                 <strong>Odyssey airlines</strong>
                 <br><br><a href="#" class="CardButton1">Learn more → </a>
             </div>
-            <img src="D:\Pagina web PROJECTS\Diseño de la pag y css\logo.png" alt="Logo de la página" class="logo"></h1>
+            <img src= "imagen/logo.png" alt="Logo de la página" class="logo"></h1>
         </div>
     </section>
     <div class="hero">
@@ -418,7 +435,7 @@
     </div>
     <div class="cards-container">
         <div class="card">
-            <img src="D:\Pagina web PROJECTS\Diseño de la pag y css\1000.jpg" alt="Créditos de viaje">
+            <img src= "imagen/1000.jpg" alt="Créditos de viaje">
             <div class="card-content">
                 <h3>Brazil</h3>
                 <p>Reserve un viaje nuevo o ascienda de clase su vuelo actual con los créditos de viaje de United.</p>
@@ -426,7 +443,7 @@
             </div>
         </div>
         <div class="card">
-            <img src="D:\Pagina web PROJECTS\Diseño de la pag y css\191-3-7762_jpeg.jpg" alt="Prepárese para viajar">
+            <img src="imagen/191-3-7762_jpeg.jpg" alt="Prepárese para viajar">
             <div class="card-content">
                 <h3>Puerto Rico</h3>
                 <p>Conozca los requisitos de viaje y de ingreso para cualquier lugar del mundo.</p>
@@ -435,7 +452,7 @@
             </div>
         </div>
         <div class="card">
-            <img src="D:\Pagina web PROJECTS\Diseño de la pag y css\images.jpg" alt="Ahorre con paquetes">
+            <img src="imagen/imagen.jpg" alt="Ahorre con paquetes">
             <div class="card-content">
                 <h3>Madrid</h3>
                 <p>Arme un paquete con los vuelos, los hoteles y los alquileres de automóviles para obtener las mejores
@@ -446,8 +463,8 @@
     </div>
     <section class="app-section2">
         <div class="textcontainer-img">
-            <div class="image-container">
-                <img src="D:\Pagina web PROJECTS\Diseño de la pag y css\Foto_Ejmplo.jpg" alt="Aplicación de United">
+            <div class="imagen-container">
+                <img src="imagen/Foto_Ejmplo.jpg" alt="Aplicación de United">
             </div>
             <div class="text-container">
                 <h2>Cambiamos la forma en la que viaja</h2>
@@ -468,36 +485,17 @@
             </div>
         </div>
     </section>
-   <!-- <section class="popular-topics">
-        <div class="container2">
-            <h2 class="popular-topics">Temas Populares</h2>
-            <div class="search-container">
-                <input type="text" id="search-bar" placeholder="Buscar..." onkeyup="searchFunction()">
-            </div>
-        </div>
-        <ul id="item-list">
-            <li>Vuelos baratos</li>
-            <li>Destinos populares</li>
-            <li>Equipaje permitido</li>
-            <li>Ofertas de temporada</li>
-            <li>Check-in en línea</li>
-            <li>Políticas de cancelación</li>
-        </ul>
-    </section>
-    <script>
-        function searchFunction() {
-            let input = document.getElementById("search-bar").value.toLowerCase();
-            let items = document.querySelectorAll("#item-list li");
 
-            items.forEach(item => {
-                let text = item.textContent.toLowerCase();
-                item.style.display = text.includes(input) ? "" : "none";
-            });
-        }
-    </script>-->
     <footer class="footer">
         <p>&copy ; 2024 Odyssey Airlines - Todos los derechos reservados</p>
     </footer>
+    
+    <script>
+        function redirectToLogin() {
+            window.location.href = "./Login.html"; // Cambia según tu archivo real
+        }
+            // Cambia según tu archivo real
+    </script>
 
 </body>
 </html>
