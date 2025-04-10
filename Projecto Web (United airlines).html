@@ -348,6 +348,34 @@
 </head>
 
 <body>
+    <section class="popular-topics">
+        <div class="container2">
+            <h2 class="popular-topics">Temas Populares</h2>
+            <div class="search-container">
+                <input type="text" id="search-bar" placeholder="Buscar..." onkeyup="searchFunction()">
+            </div>
+        </div>
+        <ul id="item-list">
+            <li>Vuelos baratos</li>
+            <li>Destinos populares</li>
+            <li>Equipaje permitido</li>
+            <li>Ofertas de temporada</li>
+            <li>Check-in en línea</li>
+            <li>Políticas de cancelación</li>
+        </ul>
+    </section>
+    <script>
+        function searchFunction() {
+            let input = document.getElementById("search-bar").value.toLowerCase();
+            let items = document.querySelectorAll("#item-list li");
+
+            items.forEach(item => {
+                let text = item.textContent.toLowerCase();
+                item.style.display = text.includes(input) ? "" : "none";
+            });
+        }
+    </script>
+
     <section class="hero-section">
         <div class="overlay">
             <div class="text-content">
@@ -440,7 +468,7 @@
             </div>
         </div>
     </section>
-    <section class="popular-topics">
+   <!-- <section class="popular-topics">
         <div class="container2">
             <h2 class="popular-topics">Temas Populares</h2>
             <div class="search-container">
@@ -466,11 +494,10 @@
                 item.style.display = text.includes(input) ? "" : "none";
             });
         }
-    </script>
-
+    </script>-->
     <footer class="footer">
         <p>&copy ; 2024 Odyssey Airlines - Todos los derechos reservados</p>
     </footer>
-</body>
 
+</body>
 </html>
