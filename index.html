@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Aerolíneas Odyssey</title>
+    <title> "Odyssey airlines" </title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
@@ -9,8 +10,9 @@
             margin: 0;
             padding: 0;
             font-family: Verdana, Geneva, Tahoma, sans-serif;
-            font-weight: bold;
+            font-style: Bold;
         }
+
         :root {
             --primary-color: #3f69dd;
             --secondary-color: #3b5188;
@@ -19,18 +21,21 @@
             --light-gray: #ffffff;
             --border-radius: 12px;
         }
+
         body {
             background-color: var(--light-gray);
             color: var(--text-color);
         }
+
         .hero-section {
             width: 100%;
             height: 640px;
             position: relative;
             background-size: cover;
             background-position: center;
-            animation: slideShow 30s linear infinite;
+            animation: slideShow 30s infinite linear;
         }
+
         .overlay {
             position: absolute;
             top: 50%;
@@ -45,15 +50,18 @@
             border-radius: 20px;
             width: 500px;
         }
+
         .text-content {
             flex: 1;
             text-align: justify;
         }
+
         .logo {
             width: 240px;
             height: auto;
             margin-left: 20px;
         }
+
         .CardButton1 {
             display: inline-block;
             padding: 10px 10px;
@@ -65,18 +73,35 @@
             text-decoration: none;
             transition: all 0.3s ease-in-out;
         }
+
         @keyframes slideShow {
-            0%, 33% { background-image: url('images/imagen1.jpg'); }
-            34%, 66% { background-image: url('images/imagen2.jpg'); }
-            67%, 100% { background-image: url('images/imagen3.jpg'); }
+
+            0%,
+            33% {
+                background-image: url('D:/Pagina web PROJECTS/Diseño de la pag y css/imagen1.jpg');
+
+            }
+
+            34%,
+            66% {
+                background-image: url('D:/Pagina web PROJECTS/Diseño de la pag y css/imagen2.jpg');
+            }
+
+            67%,
+            100% {
+                background-image: url('D:/Pagina web PROJECTS/Diseño de la pag y css/imagen3.jpg');
+            }
         }
+
         .hero {
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
-            padding: 1rem;
+            padding: 1rem 1rem;
+
             position: relative;
             overflow: hidden;
         }
+
         .container {
             max-width: 1200px;
             margin: 1rem auto 2rem;
@@ -84,6 +109,7 @@
             position: relative;
             z-index: 2;
         }
+
         .booking-form {
             background-color: rgb(244, 244, 244);
             padding: 2rem;
@@ -94,6 +120,7 @@
             justify-content: center;
             align-items: center;
         }
+
         button {
             background-color: var(--primary-color);
             color: white;
@@ -105,6 +132,7 @@
             font-weight: 600;
             transition: all 0.3s ease;
         }
+
         .CardButton {
             display: inline-block;
             padding: 10px 10px;
@@ -116,72 +144,86 @@
             text-decoration: none;
             transition: all 0.3s ease-in-out;
         }
+
         .CardButton:hover {
-            background-color: #3f69dd;
+            background: #3f69dd;
             color: white;
         }
+
         .app-section {
             display: flex;
             justify-content: center;
             padding: 50px 20px;
             background-color: #ffffff;
         }
+
         .textcontainer-img {
             display: flex;
             align-items: center;
             max-width: 1100px;
-            background-color: #ffffff;
+            background: #ffffff;
             padding: 50px;
             border-radius: 10px;
         }
+
         .image-container img {
             max-width: 90%;
             border-radius: 10px;
         }
+
         .text-container {
-            text-align: center;
+            justify-content: center;
             padding: 4px;
             max-width: 900px;
         }
+
         h2 {
             font-size: 28px;
             margin-bottom: 40px;
         }
+
         h3 {
             font-size: 20px;
             margin-bottom: 15px;
             font-weight: normal;
         }
+
         ul {
             padding: 0;
             list-style: none;
         }
+
         ul li {
             margin-bottom: 8px;
             font-size: 16px;
         }
+
         @media (max-width: 768px) {
             .textcontainer-img {
                 flex-direction: column;
                 text-align: center;
             }
+
             .text-container {
                 max-width: 100%;
             }
         }
+
         .main {
             padding: 20px;
             text-align: center;
-            font-style: italic;
+            font-weight: italic;
         }
+
         .cards-container {
             display: flex;
             justify-content: space-between;
             gap: 20px;
             padding: 20px;
         }
+
         .card {
-            background-color: white;
+            background: white;
             border-radius: 15px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
             overflow: hidden;
@@ -189,31 +231,38 @@
             text-align: justify;
             transition: transform 0.3s ease-in-out;
         }
+
         .card:hover {
             transform: scale(1.05);
         }
+
         .card img {
             width: 100%;
             height: 200px;
             object-fit: cover;
         }
+
         .card-content {
             padding: 20px;
         }
+
         .card h3 {
             font-size: 20px;
             font-weight: bold;
             margin-bottom: 10px;
             text-align: center;
         }
+
         .card p {
             font-size: 16px;
             color: #555;
             margin-bottom: 15px;
         }
+
         .search-container {
             margin: 20px;
         }
+
         #search-bar {
             width: 300px;
             padding: 10px;
@@ -221,12 +270,15 @@
             border-radius: 5px;
             font-size: 16px;
         }
+
         .popular-topics {
             background-color: #032548;
+            /* Azul */
             color: white;
             padding: 20px 0;
             text-align: center;
         }
+
         .container2 {
             max-width: 800px;
             margin: 0 auto;
@@ -235,13 +287,16 @@
             justify-content: space-between;
             padding: 10px 20px;
         }
+
         h2 {
             margin: 0;
             font-size: 24px;
         }
+
         .search-container {
             display: flex;
         }
+
         #search-bar {
             padding: 8px;
             font-size: 16px;
@@ -249,6 +304,7 @@
             border-radius: 5px;
             width: 200px;
         }
+
         #item-list {
             list-style: none;
             padding: 0;
@@ -256,25 +312,30 @@
             max-width: 800px;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            column-gap: 20px;
         }
+
         #item-list li {
             padding: 8px 0;
             border-bottom: 1px solid #ddd;
         }
+
         @media (max-width: 600px) {
             .container2 {
                 flex-direction: column;
                 text-align: center;
             }
+
             #search-bar {
                 margin-top: 10px;
                 width: 100%;
             }
+
             #item-list {
                 grid-template-columns: 1fr;
             }
         }
+
         .footer {
             display: flex;
             background-color: var(--primary-color);
@@ -285,38 +346,131 @@
         }
     </style>
 </head>
+
 <body>
     <section class="hero-section">
         <div class="overlay">
             <div class="text-content">
-                <h2>Gana hasta 80,000 millas con una tarjeta Odyssey.</h2>
-                <strong>Aerolíneas Odyssey</strong><br><br>
-                <a href="#" class="CardButton1">Más información →</a>
+                <h2>Earn up to 80,000 miles with a Odissey Card.</h2>
+                <strong>Odyssey airlines</strong>
+                <br><br><a href="#" class="CardButton1">Learn more → </a>
             </div>
-            <img src="images/logo.png" alt="Logotipo de la página" class="logo">
+            <img src="D:\Pagina web PROJECTS\Diseño de la pag y css\logo.png" alt="Logo de la página" class="logo"></h1>
         </div>
     </section>
-
+    <div class="hero">
+        <header>
+        </header>
+    </div>
     <div class="container">
         <div class="booking-form">
-            <a href="parte_del_cliente.html"><button type="submit">Reserve su vuelo</button></a>
+            <a href="parte del cliente.html"><button type="submit"> Reserve su Vuelo</button></a>
         </div>
     </div>
+    <!-- <h2>
 
+                    <p>
+                        para ponerlo en un cuadrado para despues 
+                        earn up to 80,000 miles with a Unitedplus card 
+                    </p>
+    </h2> 
+                    <p>
+                        para ponerlo en un cuadrado para despues
+                        <em> your trips with our must-see destinations list 
+                    </p>
+    </h2>-->
     <div class="main">
-        <h1><strong>Explore destinos</strong></h1>
+        <h1>
+            <strong> Explore Destinos</strong>
+        </h1>
         <br>
-        <p><em>Descubra los destinos más populares de Odyssey airlines</em></p>
+        <p>
+            <em> Descubra los destinos más populares de Odyssey airlines</em>
+        </p>
     </div>
-
     <div class="cards-container">
         <div class="card">
-            <img src="images/1000.jpg" alt="Créditos de viaje">
+            <img src="D:\Pagina web PROJECTS\Diseño de la pag y css\1000.jpg" alt="Créditos de viaje">
             <div class="card-content">
-                <h3>Brasil</h3>
+                <h3>Brazil</h3>
                 <p>Reserve un viaje nuevo o ascienda de clase su vuelo actual con los créditos de viaje de United.</p>
-                <a href="Reserva_de_ticket.html" class="CardButton">Compre ahora</a>
+                <a href="Reserva de ticket.html" class="CardButton">Compre ahora</a>
             </div>
         </div>
-       
+        <div class="card">
+            <img src="D:\Pagina web PROJECTS\Diseño de la pag y css\191-3-7762_jpeg.jpg" alt="Prepárese para viajar">
+            <div class="card-content">
+                <h3>Puerto Rico</h3>
+                <p>Conozca los requisitos de viaje y de ingreso para cualquier lugar del mundo.</p>
+                <br>
+                <a href="Reserva de ticket.html" class="CardButton">Compre ahora</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="D:\Pagina web PROJECTS\Diseño de la pag y css\images.jpg" alt="Ahorre con paquetes">
+            <div class="card-content">
+                <h3>Madrid</h3>
+                <p>Arme un paquete con los vuelos, los hoteles y los alquileres de automóviles para obtener las mejores
+                    ofertas.</p>
+                <a href="Reserva de ticket.html" class="CardButton">Compre ahora</a>
+            </div>
+        </div>
+    </div>
+    <section class="app-section2">
+        <div class="textcontainer-img">
+            <div class="image-container">
+                <img src="D:\Pagina web PROJECTS\Diseño de la pag y css\Foto_Ejmplo.jpg" alt="Aplicación de United">
+            </div>
+            <div class="text-container">
+                <h2>Cambiamos la forma en la que viaja</h2>
+                <p>
+                <h3>
+                    Cuenta con el respaldo de la aplicación de United
+                    <br>
+                    <br>
+                    Con nuestra aplicación, puede hacer lo siguiente:
+                </h3>
+                </p>
+                <br>
+                <ul>
+                    <li>-- Reservar vuelos nuevos y hacer cambios a los actuales</li>
+                    <li>-- Navegar el aeropuerto más rápido con la guía de la terminal</li>
+                    <li>-- Comprar refrigerios y mirar películas, entre otras cosas</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <section class="popular-topics">
+        <div class="container2">
+            <h2 class="popular-topics">Temas Populares</h2>
+            <div class="search-container">
+                <input type="text" id="search-bar" placeholder="Buscar..." onkeyup="searchFunction()">
+            </div>
+        </div>
+        <ul id="item-list">
+            <li>Vuelos baratos</li>
+            <li>Destinos populares</li>
+            <li>Equipaje permitido</li>
+            <li>Ofertas de temporada</li>
+            <li>Check-in en línea</li>
+            <li>Políticas de cancelación</li>
+        </ul>
+    </section>
+    <script>
+        function searchFunction() {
+            let input = document.getElementById("search-bar").value.toLowerCase();
+            let items = document.querySelectorAll("#item-list li");
 
+            items.forEach(item => {
+                let text = item.textContent.toLowerCase();
+                item.style.display = text.includes(input) ? "" : "none";
+            });
+        }
+    </script>
+
+    <footer class="footer">
+        <p>&copy ; 2024 Odyssey Airlines - Todos los derechos reservados</p>
+    </footer>
+</body>
+
+</html>
